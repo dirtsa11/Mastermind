@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Mastermind</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="nbt">Nombre de tentatives :</string>
+    <string name="nbvb">Nombre de bonnes couleurs et à la bonne place :</string>
+    <string name="nbvm">Nombre de bonnes couleurs et à la mauvaise place :</string>
+    <string name="ms">Score précédent :</string>
+
+</resources>
