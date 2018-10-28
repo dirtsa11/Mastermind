@@ -2,9 +2,7 @@ package com.example.astrid.mastermind;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,11 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Random;
 
 
@@ -30,15 +23,10 @@ public class MainActivity extends AppCompatActivity {
     EditText nbt = null;
     EditText nbvb = null;
     EditText nbvm = null;
-    EditText ms = null;
-    FileOutputStream output = null;
-    FileInputStream input = null;
-    File mFile = null;
     int color1 = 0, color2 = 0, color3 = 0, color4 = 0;
     int[] nb;
     int [] nbcherche;
     String[] nbdonne;
-    String mastermind = "mastermind.txt";
     int nbtentative,nbjustebon, nbjustemauvais;
     int nombre0, nombre1, nombre2, nombre3;
     Random rnd = new Random();
@@ -57,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         nbt = (EditText)findViewById(R.id.nbt);
         nbvm = (EditText)findViewById(R.id.nbvm);
         nbvb = (EditText)findViewById(R.id.nbvb);
-        ms = (EditText)findViewById(R.id.ms);
 
         nouveau.setOnClickListener(nouveauListener);
         verifier.setOnClickListener(verifierListener);
@@ -70,33 +57,10 @@ public class MainActivity extends AppCompatActivity {
         nb = new int[4];
         nbdonne = new String[4];
 
-        // On crée un fichier qui correspond à l'emplacement extérieur
-        mFile = new File(Environment.getExternalStorageDirectory().getPath() + "/Android/data/ " + getPackageName() + "/files/" + mastermind);
-
         init();
     }
 
     public void init(){
-        try {
-            FileInputStream input = openFileInput(mastermind);
-            int value;
-            // On utilise un StringBuffer pour construire la chaîne au fur et à mesure
-            StringBuffer lu = new StringBuffer();
-            // On lit les caractères les uns après les autres
-            while((value = input.read()) != -1) {
-                // On écrit dans le fichier le caractère lu
-                lu.append((char)value);
-            }
-            ms.setText(lu.toString());
-            if(input != null)
-                input.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         nbtentative = 0;
         nbjustebon = 0;
         nbjustemauvais = 0;
@@ -104,13 +68,6 @@ public class MainActivity extends AppCompatActivity {
         color2 = 0;
         color3 = 0;
         color4 = 0;
-        nbt.setText(String.valueOf(nbtentative));
-        nbvm.setText("");
-        nbvb.setText("");
-        case1.setBackgroundColor(Color.rgb(211, 211, 211));
-        case2.setBackgroundColor(Color.rgb(211, 211, 211));
-        case3.setBackgroundColor(Color.rgb(211, 211, 211));
-        case4.setBackgroundColor(Color.rgb(211, 211, 211));
 
         for (int i = 0; i < 4; i++)
         {
@@ -223,32 +180,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if (nb[0] == nbcherche[0] && nb[1] == nbcherche[1] && nb[2] == nbcherche[2] && nb[3] == nbcherche[3])
                 {
-                    try {
-                        // Flux interne
-                        FileOutputStream output = openFileOutput(mastermind, MODE_PRIVATE);
-
-                        // On écrit dans le flux interne
-                        output.write(String.valueOf(nbtentative).getBytes());
-
-                        if(output != null)
-                            output.close();
-
-                        // Si le fichier est lisible et qu'on peut écrire dedans
-                        if(Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                                && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState())) {
-                            // On crée un nouveau fichier. Si le fichier existe déjà, il ne sera pas créé
-                            mFile.createNewFile();
-                            output = new FileOutputStream(mFile);
-                            output.write(String.valueOf(nbtentative).getBytes());
-                            if(output != null)
-                                output.close();
-                        }
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                     alertDialog.setTitle("Félicitations !");
                     alertDialog.setMessage("Vous avez trouvé la bonne combinaison !");
@@ -259,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                     alertDialog.show();
                 }
-                else if(nbtentative>=10)
+                else if(nbtentative>=12)
                 {
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                     alertDialog.setTitle("Perdu !");
@@ -329,42 +260,42 @@ public class MainActivity extends AppCompatActivity {
         }
         if (color == 1)
         {
-            txt.setBackgroundColor(Color.rgb(255, 255, 0));
+            txt.setBackground(this.getResources().getDrawable(R.drawable.yellowroundedbutton));
             nb[nombre] = 1;
         }
         if (color == 2)
         {
-            txt.setBackgroundColor(Color.rgb(51,255,255));
+            txt.setBackground(this.getResources().getDrawable(R.drawable.cyanroundedbutton));
             nb[nombre] = 2;
         }
         if (color == 3)
         {
-            txt.setBackgroundColor(Color.rgb(255,102,0));
+            txt.setBackground(this.getResources().getDrawable(R.drawable.orangeroundedbutton));
             nb[nombre] = 3;
         }
         if (color == 4)
         {
-            txt.setBackgroundColor(Color.rgb(0,153,0));
+            txt.setBackground(this.getResources().getDrawable(R.drawable.greenroundedbutton));
             nb[nombre] = 4;
         }
         if (color == 5)
         {
-            txt.setBackgroundColor(Color.rgb(255,0,0));
+            txt.setBackground(this.getResources().getDrawable(R.drawable.redroundedbutton));
             nb[nombre] = 5;
         }
         if (color == 6)
         {
-            txt.setBackgroundColor(Color.rgb(0,0,153));
+            txt.setBackground(this.getResources().getDrawable(R.drawable.blueroundedbutton));
             nb[nombre] = 6;
         }
         if (color == 7)
         {
-            txt.setBackgroundColor(Color.rgb(255,153,255));
+            txt.setBackground(this.getResources().getDrawable(R.drawable.pinkroundedbutton));
             nb[nombre] = 7;
         }
         if (color == 8)
         {
-            txt.setBackgroundColor(Color.rgb(102,0,204));
+            txt.setBackground(this.getResources().getDrawable(R.drawable.purpleroundedbutton));
             nb[nombre] = 8;
         }
         return color;
@@ -421,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_rules) {
             return true;
         }
 
