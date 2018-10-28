@@ -11,5 +11,16 @@
         - Si une ou plusieurs couleurs sont à la bonne place, des ronds rouges en indiqueront le nombre.\n
         - Si une ou plusieurs couleurs sont à la mauvaise place, des ronds blancs en indiqueront le nombre.
     </string>
+    <string name="zero">0</string>
+    <string name="txt_combinaisons">Combinaisons précédentes</string>
+    <string name="verifier">Vérifier</string>
+    <string name="nouveau">Nouveau</string>
+    <string name="logo">Logo Mastermind</string>
+    <string name="erreur">Erreur !</string>
+    <string name="erreur_contenu">"Votre liste de couleurs est incomplète !</string>
+    <string name="felicitations">Félicitations !</string>
+    <string name="felicitations_contenu">Vous avez trouvé la bonne combinaison !</string>
+    <string name="perdu">Perdu !</string>
+    <string name="perdu_contenu">Vous aurez plus de chance la prochaine fois !</string>
 
 </resources>

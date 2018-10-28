@@ -1,86 +1,93 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:weightSum="10"
     android:orientation="vertical"
-    android:background="#ff000000">
+    android:background="@android:color/black">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif-condensed"
             android:gravity="center_vertical"
             android:text="@string/nbt"
-            android:textColor="#ffffffff"
-            android:textSize="12sp" />
+            android:textColor="@android:color/white"
+            android:textSize="16sp"/>
 
-        <EditText
+        <TextView
             android:id="@+id/nbt"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:background="#ff000000"
-            android:clickable="false"
-            android:enabled="false"
-            android:focusable="false"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif-condensed"
             android:gravity="center_vertical"
-            android:inputType="text"
-            android:text="0"
-            android:textColor="#ffffffff"
-            android:visibility="visible" />
+            android:text="@string/zero"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginStart="10dp"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="2"
-        android:layout_marginTop="10dp"
+        android:layout_weight="1"
         android:gravity="center">
+
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/greyroundedbutton"
             android:id="@+id/case1"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp" />
 
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/greyroundedbutton"
             android:id="@+id/case2"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp" />
 
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/greyroundedbutton"
             android:id="@+id/case3"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp" />
 
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/greyroundedbutton"
             android:id="@+id/case4"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_marginLeft="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginStart="10dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,19 +95,27 @@
                 android:gravity="center">
 
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/rb1"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:background="@drawable/greyroundedbutton"
-                    android:checked="false" />
+                    android:background="@drawable/darkgreyroundedbutton"
+                    android:clickable="false"
+                    android:focusable="false"/>
+
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/rb2"
                     android:layout_marginLeft="5dp"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:background="@drawable/greyroundedbutton"
-                    android:checked="false" />
+                    android:background="@drawable/darkgreyroundedbutton"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:layout_marginStart="5dp" />
+
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -109,25 +124,57 @@
                 android:orientation="horizontal">
 
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:id="@+id/rb3"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:background="@drawable/greyroundedbutton"
-                    android:checked="false" />
+                    android:background="@drawable/darkgreyroundedbutton"
+                    android:clickable="false"
+                    android:focusable="false" />
+
                 <Button
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_marginLeft="5dp"
                     android:id="@+id/rb4"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:background="@drawable/greyroundedbutton"
-                    android:checked="false" />
+                    android:background="@drawable/darkgreyroundedbutton"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:layout_marginStart="5dp" />
+
             </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="7">
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/txtCombinaisons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:text="@string/txt_combinaisons"
+            android:textSize="16sp" />
+
+        <ListView
+            android:layout_marginTop="15dp"
+            android:id="@+id/listeCombinaisons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -135,25 +182,31 @@
         android:gravity="center">
 
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/verifier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#ffc81119"
+            android:background="@drawable/roundedrectanglebutton"
             android:clickable="true"
-            android:fontFamily="monospace"
-            android:text="Vérifier" />
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/white"
+            android:text="@string/verifier"
+            android:focusable="true" />
 
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/nouveau"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="#ffc81119"
+            android:background="@drawable/roundedrectanglebutton"
             android:clickable="true"
-            android:fontFamily="monospace"
-            android:text="Nouveau" />
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@android:color/white"
+            android:text="@string/nouveau"
+            android:layout_marginStart="10dp"
+            android:focusable="true" />
+
     </LinearLayout>
-
-
 
 </LinearLayout>

@@ -2,13 +2,11 @@ package com.example.astrid.mastermind;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 
 /**
- * Created by Astrid on 27/10/2018.
+ * Created by Astrid.
  */
 
 public class SplashScreen extends Activity {

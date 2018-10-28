@@ -2,30 +2,38 @@ package com.example.astrid.mastermind;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button nouveau = null;
-    Button verifier = null;
-    Button case1 = null;
-    Button case2 = null;
-    Button case3 = null;
-    Button case4 = null;
-    Button rb1 = null;
-    Button rb2 = null;
-    Button rb3 = null;
-    Button rb4 = null;
-    EditText nbt = null;
-    int color1 = 0, color2 = 0, color3 = 0, color4 = 0;
+    Button nouveau;
+    Button verifier;
+    Button case1;
+    Button case2;
+    Button case3;
+    Button case4;
+    Button rb1;
+    Button rb2;
+    Button rb3;
+    Button rb4;
+    TextView nbt;
+    TextView txtCombinaisons;
+    ListView listLines;
+    ArrayList<Line> lines;
+    LineAdapter lineAdapter;
+    int color1, color2, color3, color4;
+    Drawable[]drawables;
     int[] nb;
     int [] nbcherche;
     String[] nbdonne;
@@ -44,11 +52,26 @@ public class MainActivity extends AppCompatActivity {
         case2 = (Button)findViewById(R.id.case2);
         case3 = (Button)findViewById(R.id.case3);
         case4 = (Button)findViewById(R.id.case4);
-        nbt = (EditText)findViewById(R.id.nbt);
+        nbt = (TextView) findViewById(R.id.nbt);
         rb1 = (Button)findViewById(R.id.rb1);
         rb2 = (Button)findViewById(R.id.rb2);
         rb3 = (Button)findViewById(R.id.rb3);
         rb4 = (Button)findViewById(R.id.rb4);
+
+        listLines = (ListView)findViewById(R.id.listeCombinaisons);
+        lines=new ArrayList<>();
+        lineAdapter = new LineAdapter(getApplicationContext(), lines);
+        listLines.setAdapter(lineAdapter);
+        drawables = new Drawable[8];
+
+        drawables[0] = getResources().getDrawable(R.drawable.yellowroundedbutton);
+        drawables[1] = getResources().getDrawable(R.drawable.cyanroundedbutton);
+        drawables[2] = getResources().getDrawable(R.drawable.orangeroundedbutton);
+        drawables[3] = getResources().getDrawable(R.drawable.greenroundedbutton);
+        drawables[4] = getResources().getDrawable(R.drawable.redroundedbutton);
+        drawables[5] = getResources().getDrawable(R.drawable.blueroundedbutton);
+        drawables[6] = getResources().getDrawable(R.drawable.pinkroundedbutton);
+        drawables[7] = getResources().getDrawable(R.drawable.purpleroundedbutton);
 
         nouveau.setOnClickListener(nouveauListener);
         verifier.setOnClickListener(verifierListener);
@@ -72,16 +95,20 @@ public class MainActivity extends AppCompatActivity {
         color2 = 0;
         color3 = 0;
         color4 = 0;
-        rb1.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
-        rb2.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
-        rb3.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
-        rb4.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
+        rb1.setBackground(getResources().getDrawable(R.drawable.darkgreyroundedbutton));
+        rb2.setBackground(getResources().getDrawable(R.drawable.darkgreyroundedbutton));
+        rb3.setBackground(getResources().getDrawable(R.drawable.darkgreyroundedbutton));
+        rb4.setBackground(getResources().getDrawable(R.drawable.darkgreyroundedbutton));
         case1.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
         case2.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
         case3.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
         case4.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
+        txtCombinaisons = (TextView)findViewById(R.id.txtCombinaisons);
 
         nbt.setText(String.valueOf(nbtentative));
+        lines.clear();
+        lineAdapter.notifyDataSetChanged();
+        txtCombinaisons.setVisibility(View.INVISIBLE);
 
         for (int i = 0; i < 4; i++)
         {
@@ -99,162 +126,7 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener verifierListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (color1 != 0 && color2 != 0 && color3 != 0 && color4 != 0)
-            {
-                nbjustebon = 0;
-                nbjustemauvais = 0;
-                nombre0 = 0;
-                nombre1 = 0;
-                nombre2 = 0;
-                nombre3 = 0;
-                rb1.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
-                rb2.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
-                rb3.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
-                rb4.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
-
-                nbtentative += 1;
-                nbt.setText(String.valueOf(nbtentative));
-
-                for (int i = 0; i < 4; i++)
-                {
-                    if (nbcherche[i] == nb[i])
-                    {
-                        nbjustebon += 1;
-                        if(rb1.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.greyroundedbutton).getConstantState())){
-                            rb1.setBackground(getResources().getDrawable(R.drawable.redroundedbutton));
-                        }else if(rb2.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.greyroundedbutton).getConstantState())) {
-                            rb2.setBackground(getResources().getDrawable(R.drawable.redroundedbutton));
-                        }else if(rb3.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.greyroundedbutton).getConstantState())) {
-                            rb3.setBackground(getResources().getDrawable(R.drawable.redroundedbutton));
-                        }else{
-                            rb4.setBackground(getResources().getDrawable(R.drawable.redroundedbutton));
-                        }
-                    }
-                }
-                if (nbcherche[0] != nb[0])
-                {
-                    if (nb[0] == nbcherche[1] && nb[1] != nbcherche[1] && nombre1 == 0)
-                    {
-                        nbjustemauvais += 1;
-                        nombre1 = 1;
-                    }
-                    else if (nb[0] == nbcherche[2] && nb[2] != nbcherche[2] && nombre2 == 0)
-                    {
-                        nbjustemauvais += 1;
-                        nombre2 = 1;
-                    }
-                    else if (nb[0] == nbcherche[3] && nb[3] != nbcherche[3] && nombre3 == 0)
-                    {
-                        nbjustemauvais += 1;
-                        nombre3 = 1;
-                    }
-                }
-                if (nbcherche[1] != nb[1])
-                {
-                    if (nb[1] == nbcherche[0] && nb[0] != nbcherche[0] && nombre0 == 0)
-                    {
-                        nbjustemauvais += 1;
-                        nombre0 = 1;
-
-                    }
-                    else if (nb[1] == nbcherche[2] && nb[2] != nbcherche[2] && nombre2 == 0)
-                    {
-                        nbjustemauvais += 1;
-                        nombre2 = 1;
-                    }
-                    else if (nb[1] == nbcherche[3] && nb[3] != nbcherche[3] && nombre3 == 0)
-                    {
-                        nbjustemauvais += 1;
-                        nombre3 = 1;
-                    }
-                }
-                if (nbcherche[2] != nb[2])
-                {
-                    if (nb[2] == nbcherche[0] && nb[0] != nbcherche[0] && nombre0 == 0)
-                    {
-                        nbjustemauvais += 1;
-                        nombre0 = 1;
-                    }
-                    else if (nb[2] == nbcherche[1] && nb[1] != nbcherche[1] && nombre1 == 0)
-                    {
-                        nbjustemauvais += 1;
-                        nombre1 = 1;
-                    }
-                    else if (nb[2] == nbcherche[3] && nb[3] != nbcherche[3] && nombre3 == 0)
-                    {
-                        nbjustemauvais += 1;
-                        nombre3 = 1;
-                    }
-                }
-                if (nbcherche[3] != nb[3])
-                {
-                    if (nb[3] == nbcherche[0] && nb[0] != nbcherche[0] && nombre0 == 0)
-                    {
-                        nbjustemauvais += 1;
-                        nombre0 = 1;
-                    }
-                    else if (nb[3] == nbcherche[1] && nb[1] != nbcherche[1] && nombre1 == 0)
-                    {
-                        nbjustemauvais += 1;
-                        nombre1 = 1;
-                    }
-                    else if (nb[3] == nbcherche[2] && nb[2] != nbcherche[2] && nombre2 == 0)
-                    {
-                        nbjustemauvais += 1;
-                        nombre2 = 1;
-                    }
-                    for(int i = 1;i<=nbjustemauvais;i++){
-                        if(rb1.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.greyroundedbutton).getConstantState())
-                                && !rb1.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.redroundedbutton).getConstantState())){
-                            rb1.setBackground(getResources().getDrawable(R.drawable.whiteroundedbutton));
-                        }else if(rb2.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.greyroundedbutton).getConstantState())
-                                && !rb2.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.redroundedbutton).getConstantState())) {
-                            rb2.setBackground(getResources().getDrawable(R.drawable.whiteroundedbutton));
-                        }else if(rb3.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.greyroundedbutton).getConstantState())
-                                && !rb3.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.redroundedbutton).getConstantState())) {
-                            rb3.setBackground(getResources().getDrawable(R.drawable.whiteroundedbutton));
-                        }else{
-                            rb4.setBackground(getResources().getDrawable(R.drawable.whiteroundedbutton));
-                        }
-                    }
-                }
-
-                if (nb[0] == nbcherche[0] && nb[1] == nbcherche[1] && nb[2] == nbcherche[2] && nb[3] == nbcherche[3])
-                {
-                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                    alertDialog.setTitle("Félicitations !");
-                    alertDialog.setMessage("Vous avez trouvé la bonne combinaison !");
-                    alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            init();
-                        }
-                    });
-                    alertDialog.show();
-                }
-                else if(nbtentative>=12)
-                {
-                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                    alertDialog.setTitle("Perdu !");
-                    alertDialog.setMessage("T'es vraiment nul !");
-                    alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            init();
-                        }
-                    });
-                    alertDialog.show();
-                }
-            }
-            else
-            {
-                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                alertDialog.setTitle("Erreur !");
-                alertDialog.setMessage("Votre liste de couleurs est incomplète !");
-                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                alertDialog.show();
-            }
+            verification();
         }
     };
 
@@ -290,117 +162,209 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public int changeCouleur(Button txt, int color, int nombre)
+    public int changeCouleur(Button txt, int color, int nombre) // Méthode pour changer la couleur des boutons
     {
         color++;
-        if (color > 8)
+        if (color == 9)
         {
             color = 1;
         }
-        if (color == 1)
-        {
-            txt.setBackground(this.getResources().getDrawable(R.drawable.yellowroundedbutton));
-            nb[nombre] = 1;
-        }
-        if (color == 2)
-        {
-            txt.setBackground(this.getResources().getDrawable(R.drawable.cyanroundedbutton));
-            nb[nombre] = 2;
-        }
-        if (color == 3)
-        {
-            txt.setBackground(this.getResources().getDrawable(R.drawable.orangeroundedbutton));
-            nb[nombre] = 3;
-        }
-        if (color == 4)
-        {
-            txt.setBackground(this.getResources().getDrawable(R.drawable.greenroundedbutton));
-            nb[nombre] = 4;
-        }
-        if (color == 5)
-        {
-            txt.setBackground(this.getResources().getDrawable(R.drawable.redroundedbutton));
-            nb[nombre] = 5;
-        }
-        if (color == 6)
-        {
-            txt.setBackground(this.getResources().getDrawable(R.drawable.blueroundedbutton));
-            nb[nombre] = 6;
-        }
-        if (color == 7)
-        {
-            txt.setBackground(this.getResources().getDrawable(R.drawable.pinkroundedbutton));
-            nb[nombre] = 7;
-        }
-        if (color == 8)
-        {
-            txt.setBackground(this.getResources().getDrawable(R.drawable.purpleroundedbutton));
-            nb[nombre] = 8;
+        for(int i = 1; i<=8; i++){
+            if(color==i) {
+                txt.setBackground(drawables[i - 1]);
+                nb[nombre] = i;
+            }
         }
         return color;
     }
 
     public int nombre(int color,int nombre){
-        if (color == 1)
-        {
-            nb[nombre] = 1;
-        }
-        if (color == 2)
-        {
-            nb[nombre] = 2;
-        }
-        if (color == 3)
-        {
-            nb[nombre] = 3;
-        }
-        if (color == 4)
-        {
-            nb[nombre] = 4;
-        }
-        if (color == 5)
-        {
-            nb[nombre] = 5;
-        }
-        if (color == 6)
-        {
-            nb[nombre] = 6;
-        }
-        if (color == 7)
-        {
-            nb[nombre] = 7;
-        }
-        if (color == 8)
-        {
-            nb[nombre] = 8;
+        for(int i = 1; i<=8;i++){
+            if(color==i){
+                nb[nombre] = i;
+            }
         }
         return nb[nombre];
     }
 
+    public void generationPopUp(String titre, String contenu){
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle(titre);
+        alertDialog.setMessage(contenu);
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        alertDialog.show();
+    }
+
+    public void generationPopUpReinit(String titre, String contenu){
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle(titre);
+        alertDialog.setMessage(contenu);
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                init();
+            }
+        });
+        alertDialog.show();
+    }
+
+    public void verification(){
+        if (color1 != 0 && color2 != 0 && color3 != 0 && color4 != 0)
+        {
+            nbjustebon = 0;
+            nbjustemauvais = 0;
+            nombre0 = 0;
+            nombre1 = 0;
+            nombre2 = 0;
+            nombre3 = 0;
+            rb1.setBackground(getResources().getDrawable(R.drawable.darkgreyroundedbutton));
+            rb2.setBackground(getResources().getDrawable(R.drawable.darkgreyroundedbutton));
+            rb3.setBackground(getResources().getDrawable(R.drawable.darkgreyroundedbutton));
+            rb4.setBackground(getResources().getDrawable(R.drawable.darkgreyroundedbutton));
+
+            nbtentative += 1;
+            nbt.setText(String.valueOf(nbtentative));
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (nbcherche[i] == nb[i])
+                {
+                    nbjustebon += 1;
+                    if(rb1.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.darkgreyroundedbutton).getConstantState())){
+                        rb1.setBackground(getResources().getDrawable(R.drawable.redroundedbutton));
+                    }else if(rb2.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.darkgreyroundedbutton).getConstantState())) {
+                        rb2.setBackground(getResources().getDrawable(R.drawable.redroundedbutton));
+                    }else if(rb3.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.darkgreyroundedbutton).getConstantState())) {
+                        rb3.setBackground(getResources().getDrawable(R.drawable.redroundedbutton));
+                    }else{
+                        rb4.setBackground(getResources().getDrawable(R.drawable.redroundedbutton));
+                    }
+                }
+            }
+            if (nbcherche[0] != nb[0])
+            {
+                if (nb[0] == nbcherche[1] && nb[1] != nbcherche[1] && nombre1 == 0)
+                {
+                    nbjustemauvais += 1;
+                    nombre1 = 1;
+                }
+                else if (nb[0] == nbcherche[2] && nb[2] != nbcherche[2] && nombre2 == 0)
+                {
+                    nbjustemauvais += 1;
+                    nombre2 = 1;
+                }
+                else if (nb[0] == nbcherche[3] && nb[3] != nbcherche[3] && nombre3 == 0)
+                {
+                    nbjustemauvais += 1;
+                    nombre3 = 1;
+                }
+            }
+            if (nbcherche[1] != nb[1])
+            {
+                if (nb[1] == nbcherche[0] && nb[0] != nbcherche[0] && nombre0 == 0)
+                {
+                    nbjustemauvais += 1;
+                    nombre0 = 1;
+
+                }
+                else if (nb[1] == nbcherche[2] && nb[2] != nbcherche[2] && nombre2 == 0)
+                {
+                    nbjustemauvais += 1;
+                    nombre2 = 1;
+                }
+                else if (nb[1] == nbcherche[3] && nb[3] != nbcherche[3] && nombre3 == 0)
+                {
+                    nbjustemauvais += 1;
+                    nombre3 = 1;
+                }
+            }
+            if (nbcherche[2] != nb[2])
+            {
+                if (nb[2] == nbcherche[0] && nb[0] != nbcherche[0] && nombre0 == 0)
+                {
+                    nbjustemauvais += 1;
+                    nombre0 = 1;
+                }
+                else if (nb[2] == nbcherche[1] && nb[1] != nbcherche[1] && nombre1 == 0)
+                {
+                    nbjustemauvais += 1;
+                    nombre1 = 1;
+                }
+                else if (nb[2] == nbcherche[3] && nb[3] != nbcherche[3] && nombre3 == 0)
+                {
+                    nbjustemauvais += 1;
+                    nombre3 = 1;
+                }
+            }
+            if (nbcherche[3] != nb[3])
+            {
+                if (nb[3] == nbcherche[0] && nb[0] != nbcherche[0] && nombre0 == 0)
+                {
+                    nbjustemauvais += 1;
+                    nombre0 = 1;
+                }
+                else if (nb[3] == nbcherche[1] && nb[1] != nbcherche[1] && nombre1 == 0)
+                {
+                    nbjustemauvais += 1;
+                    nombre1 = 1;
+                }
+                else if (nb[3] == nbcherche[2] && nb[2] != nbcherche[2] && nombre2 == 0)
+                {
+                    nbjustemauvais += 1;
+                    nombre2 = 1;
+                }
+
+            }
+
+            for(int i = 1; i<=nbjustemauvais;i++){
+                if(rb1.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.darkgreyroundedbutton).getConstantState())
+                        && !rb1.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.redroundedbutton).getConstantState())){
+                    rb1.setBackground(getResources().getDrawable(R.drawable.whiteroundedbutton));
+                }else if(rb2.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.darkgreyroundedbutton).getConstantState())
+                        && !rb2.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.redroundedbutton).getConstantState())) {
+                    rb2.setBackground(getResources().getDrawable(R.drawable.whiteroundedbutton));
+                }else if(rb3.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.darkgreyroundedbutton).getConstantState())
+                        && !rb3.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.redroundedbutton).getConstantState())) {
+                    rb3.setBackground(getResources().getDrawable(R.drawable.whiteroundedbutton));
+                }else{
+                    rb4.setBackground(getResources().getDrawable(R.drawable.whiteroundedbutton));
+                }
+            }
+
+            if (nb[0] == nbcherche[0] && nb[1] == nbcherche[1] && nb[2] == nbcherche[2] && nb[3] == nbcherche[3])
+            {
+                generationPopUpReinit(getResources().getString(R.string.felicitations),getResources().getString(R.string.felicitations_contenu));
+            }
+            else if(nbtentative>=12)
+            {
+                generationPopUpReinit(getResources().getString(R.string.perdu),getResources().getString(R.string.perdu_contenu));
+            }
+
+            txtCombinaisons.setVisibility(View.VISIBLE);
+            Line line = new Line(case1.getBackground(),case2.getBackground(),case3.getBackground(),case4.getBackground(),rb1.getBackground(),rb2.getBackground(),rb3.getBackground(),rb4.getBackground());
+            lines.add(line);
+            lineAdapter.notifyDataSetChanged();
+        }
+        else
+        {
+            generationPopUp(getResources().getString(R.string.erreur),getResources().getString(R.string.erreur_contenu));
+        }
+    }
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+    public boolean onCreateOptionsMenu(Menu menu) { // Création du menu
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
+        // Si l'option "Règles" est sélectionnée dans le menu
         if (id == R.id.action_rules) {
-            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-            alertDialog.setTitle(R.string.action_rules);
-            alertDialog.setMessage(getResources().getString(R.string.rules));
-            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    init();
-                }
-            });
-            alertDialog.show();
+            generationPopUp(getResources().getString(R.string.action_rules),getResources().getString(R.string.rules));
             return true;
         }
 
