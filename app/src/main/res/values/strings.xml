@@ -2,9 +2,14 @@
 <resources>
 
     <string name="app_name">Mastermind</string>
-    <string name="action_rules">Rules</string>
+    <string name="action_rules">Règles</string>
     <string name="nbt">Nombre de tentatives :</string>
-    <string name="nbvb">Nombre de bonnes couleurs et à la bonne place :</string>
-    <string name="nbvm">Nombre de bonnes couleurs et à la mauvaise place :</string>
+    <string name="rules">
+        Le but de ce jeu est de deviner la bonne combinaison de couleurs. Le joueur ne dispose que d\'un maximum de 12 tentatives pour trouver cette combinaison. A chaque tentative, le joueur propose une combinaison de 4 couleurs.
+        \nSi la combinaison présentée est correcte, la partie s\'arrête.
+        \nSi la combinaison est incorrecte, mais que certaines couleurs sont bien présentes dans la combinaison :\n
+        - Si une ou plusieurs couleurs sont à la bonne place, des ronds rouges en indiqueront le nombre.\n
+        - Si une ou plusieurs couleurs sont à la mauvaise place, des ronds blancs en indiqueront le nombre.
+    </string>
 
 </resources>
