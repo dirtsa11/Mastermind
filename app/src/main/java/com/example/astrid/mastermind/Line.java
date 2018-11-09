@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
  * Created by Astrid.
  */
 
+// Classe to define a line of the list of tests
 class Line {
     private Drawable drawableCase1;
     private Drawable drawableCase2;

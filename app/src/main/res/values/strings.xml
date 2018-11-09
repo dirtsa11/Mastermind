@@ -2,25 +2,25 @@
 <resources>
 
     <string name="app_name">Mastermind</string>
-    <string name="action_rules">Règles</string>
-    <string name="nbt">Nombre de tentatives :</string>
+    <string name="action_rules">Rules</string>
+    <string name="nbt">Number of attempts :</string>
     <string name="rules">
-        Le but de ce jeu est de deviner la bonne combinaison de couleurs. Le joueur ne dispose que d\'un maximum de 12 tentatives pour trouver cette combinaison. A chaque tentative, le joueur propose une combinaison de 4 couleurs.
-        \nSi la combinaison présentée est correcte, la partie s\'arrête.
-        \nSi la combinaison est incorrecte, mais que certaines couleurs sont bien présentes dans la combinaison :\n
-        - Si une ou plusieurs couleurs sont à la bonne place, des ronds rouges en indiqueront le nombre.\n
-        - Si une ou plusieurs couleurs sont à la mauvaise place, des ronds blancs en indiqueront le nombre.
+        The goal of this game is to guess the right combination of colors. The player only has a maximum of 12 attempts to find this combination. At each attempt, the player proposes a combination of 4 colors.
+        \nIf the combination shown is correct, the game stops.
+        \nIf the combination is incorrect, but some colors are present in the combination: \n
+        - If one or more colors are in the right place, red circles will indicate the number. \n
+        - If one or more colors are in the wrong place, white circles will indicate the number.
     </string>
     <string name="zero">0</string>
-    <string name="txt_combinaisons">Combinaisons précédentes</string>
-    <string name="verifier">Vérifier</string>
-    <string name="nouveau">Nouveau</string>
-    <string name="logo">Logo Mastermind</string>
-    <string name="erreur">Erreur !</string>
-    <string name="erreur_contenu">"Votre liste de couleurs est incomplète !</string>
-    <string name="felicitations">Félicitations !</string>
-    <string name="felicitations_contenu">Vous avez trouvé la bonne combinaison !</string>
-    <string name="perdu">Perdu !</string>
-    <string name="perdu_contenu">Vous aurez plus de chance la prochaine fois !</string>
+    <string name="txt_combinaisons">Previous combinations</string>
+    <string name="verifier">Check</string>
+    <string name="nouveau">New</string>
+    <string name="logo">Mastermind Logo</string>
+    <string name="erreur">Error !</string>
+    <string name="felicitations">Congratulations !</string>
+    <string name="perdu">Wasted !</string>
+    <string name="erreur_contenu">Your color list is incomplete!</string>
+    <string name="felicitations_contenu">You have found the right combination!</string>
+    <string name="perdu_contenu">You will have more luck next time!</string>
 
 </resources>

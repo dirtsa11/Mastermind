@@ -9,6 +9,7 @@ import android.os.Handler;
  * Created by Astrid.
  */
 
+// Introduction screen
 public class SplashScreen extends Activity {
 
     protected void onCreate(Bundle savedInstanceState){
@@ -18,11 +19,12 @@ public class SplashScreen extends Activity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run(){
-                Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                // Opening the Mastermind activity
+                Intent i = new Intent(SplashScreen.this, MastermindActivity.class);
                 startActivity(i);
                 finish();
 
             }
-        }, 3000);
+        }, 3000); // Display for 3 seconds
     }
 }

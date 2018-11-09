@@ -15,8 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
-
-public class MainActivity extends AppCompatActivity {
+// Main class
+public class MastermindActivity extends AppCompatActivity {
     Button nouveau;
     Button verifier;
     Button case1;
@@ -44,21 +44,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_mastermind);
 
-        nouveau = (Button)findViewById(R.id.nouveau);
-        verifier = (Button)findViewById(R.id.verifier);
-        case1 = (Button)findViewById(R.id.case1);
-        case2 = (Button)findViewById(R.id.case2);
-        case3 = (Button)findViewById(R.id.case3);
-        case4 = (Button)findViewById(R.id.case4);
-        nbt = (TextView) findViewById(R.id.nbt);
-        rb1 = (Button)findViewById(R.id.rb1);
-        rb2 = (Button)findViewById(R.id.rb2);
-        rb3 = (Button)findViewById(R.id.rb3);
-        rb4 = (Button)findViewById(R.id.rb4);
+        nouveau = findViewById(R.id.nouveau);
+        verifier = findViewById(R.id.verifier);
+        txtCombinaisons = findViewById(R.id.txtCombinaisons);
+        case1 = findViewById(R.id.case1);
+        case2 = findViewById(R.id.case2);
+        case3 = findViewById(R.id.case3);
+        case4 = findViewById(R.id.case4);
+        nbt = findViewById(R.id.nbt);
+        rb1 = findViewById(R.id.rb1);
+        rb2 = findViewById(R.id.rb2);
+        rb3 = findViewById(R.id.rb3);
+        rb4 = findViewById(R.id.rb4);
 
-        listLines = (ListView)findViewById(R.id.listeCombinaisons);
+        listLines = findViewById(R.id.listeCombinaisons);
         lines=new ArrayList<>();
         lineAdapter = new LineAdapter(getApplicationContext(), lines);
         listLines.setAdapter(lineAdapter);
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         init();
     }
 
+    // Method for initializing and resetting
     public void init(){
         nbtentative = 0;
         nbjustebon = 0;
@@ -103,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
         case2.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
         case3.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
         case4.setBackground(getResources().getDrawable(R.drawable.greyroundedbutton));
-        txtCombinaisons = (TextView)findViewById(R.id.txtCombinaisons);
 
         nbt.setText(String.valueOf(nbtentative));
         lines.clear();
@@ -134,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             color1=changeCouleur(case1,color1,0);
-            nb[0]=nombre(color1,0);
         }
     };
 
@@ -142,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             color2=changeCouleur(case2,color2,1);
-            nb[1]=nombre(color2,1);
         }
     };
 
@@ -150,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             color3=changeCouleur(case3,color3,2);
-            nb[2]=nombre(color3,2);
         }
     };
 
@@ -158,11 +156,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             color4=changeCouleur(case4,color4,3);
-            nb[3]=nombre(color4,3);
         }
     };
 
-    public int changeCouleur(Button txt, int color, int nombre) // Méthode pour changer la couleur des boutons
+    // Method for changing the color of the buttons
+    public int changeCouleur(Button txt, int color, int nombre)
     {
         color++;
         if (color == 9)
@@ -178,17 +176,9 @@ public class MainActivity extends AppCompatActivity {
         return color;
     }
 
-    public int nombre(int color,int nombre){
-        for(int i = 1; i<=8;i++){
-            if(color==i){
-                nb[nombre] = i;
-            }
-        }
-        return nb[nombre];
-    }
-
+    // Method for generating a popup
     public void generationPopUp(String titre, String contenu){
-        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(MastermindActivity.this).create();
         alertDialog.setTitle(titre);
         alertDialog.setMessage(contenu);
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
@@ -198,8 +188,9 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    // Method for generating a popup with reset
     public void generationPopUpReinit(String titre, String contenu){
-        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(MastermindActivity.this).create();
         alertDialog.setTitle(titre);
         alertDialog.setMessage(contenu);
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
@@ -210,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    // Method to check if the combination is the right one
     public void verification(){
         if (color1 != 0 && color2 != 0 && color3 != 0 && color4 != 0)
         {
@@ -354,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) { // Création du menu
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -362,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        // Si l'option "Règles" est sélectionnée dans le menu
+        // If the "Rules" option is selected in the menu
         if (id == R.id.action_rules) {
             generationPopUp(getResources().getString(R.string.action_rules),getResources().getString(R.string.rules));
             return true;

@@ -15,6 +15,7 @@ import java.util.ArrayList;
  * Created by Astrid.
  */
 
+// Custom adapter
 public class LineAdapter extends ArrayAdapter<Line> {
     LineAdapter(Context context, ArrayList<Line> lines){
         super(context,0,lines);
@@ -34,6 +35,8 @@ public class LineAdapter extends ArrayAdapter<Line> {
         Button btnrb2 = convertView.findViewById(R.id.itemrb2);
         Button btnrb3 = convertView.findViewById(R.id.itemrb3);
         Button btnrb4 = convertView.findViewById(R.id.itemrb4);
+
+        // If the line is not null, change the background color of the button
         if (line != null) {
             btncase1.setBackground(line.getDrawableCase1());
             btncase2.setBackground(line.getDrawableCase2());
